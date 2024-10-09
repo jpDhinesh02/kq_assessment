@@ -24,9 +24,7 @@ public class getPassword {
                 .response();
 
         String responseBody = response.asString();
-        System.out.println("Response Body: " + responseBody);
         int statusCode = response.getStatusCode();
-        System.out.println("Response Status Code: " + statusCode);
 
         if (statusCode != 200) {
             System.out.println("API call failed with status code: " + statusCode);

@@ -31,7 +31,6 @@ public class sendMail {
                 new SSLConfig().relaxedHTTPSValidation());
         String reportPath = System.getProperty("user.dir") + "/Reports/" + extentReports.mailfileName + "_"
                 + extentReports.mailformattedDateTime + ".html";
-        System.out.println("reportPath>>>>>>" + reportPath);
 
         String jsonBody = "{"
                 + "\"to\": \"" + toMail + "\","
@@ -51,8 +50,6 @@ public class sendMail {
                 .extract()
                 .response();
         String responseBody = response.asString();
-        System.out.println("Response Code: " + response.getStatusCode());
-        System.out.println("Response Body: " + responseBody);
     }
 
     private static void runBatchFile() {
@@ -61,7 +58,6 @@ public class sendMail {
             ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", batchFilePath);
             processBuilder.inheritIO();
             processBuilder.start();
-            System.out.println("Batch file executed");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -21,6 +21,8 @@ public class Allrunner {
         launch.launchKqWeb(driver);
         login.loginWeb(driver);
         login.logout(driver);
+        login.forgetPassword(driver);
+        login.loginWeb(driver);
         extentReports.flush();
         sendMail.sendMailToUser("dhinesh.p@knowledgeq.com");
     }

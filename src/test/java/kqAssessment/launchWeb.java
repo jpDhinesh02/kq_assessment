@@ -16,7 +16,6 @@ public class launchWeb {
 			String Urls[] = { "https://172.26.10.5:3001/", "https://172.26.10.5:3000/" };
 
 			for (int i = 0; i <= Urls.length - 1; i++) {
-				System.out.println("Url>>>>>" + Urls[i]);
 				driver.get(Urls[i]);
 				driver.manage().window().maximize();
 				try {
