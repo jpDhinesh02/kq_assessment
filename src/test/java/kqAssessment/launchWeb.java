@@ -10,20 +10,29 @@ import utility.extentReports;
 
 public class launchWeb {
 
-	public void launchKqWeb(WebDriver driver) throws Exception {
+	public void launchKqWeb(WebDriver driver, String projectType) throws Exception {
 		extentReports.createTest("Launch_Kq_Assessment", "Test for launch Application");
 		try {
-			String Urls[] = { "https://172.26.10.5:3001/", "https://172.26.10.5:3000/" };
+			String[] urlLinks;
+			System.err.println("projectType>>>>"+projectType);
+			System.err.println(projectType.toLowerCase().contains("python"));
+			if (projectType.toLowerCase().contains("python")) {
+				urlLinks = new String[] { "https://172.26.10.5:3001/", "http://172.26.10.5:8000/" };
+			} else if (projectType.toLowerCase().contains("react")) {
+				urlLinks = new String[] { "https://172.26.10.5:3001/", "https://172.26.10.5:3000/" };
+			} else {
+				throw new Exception("Unsupported project type: " + projectType);
+			}
 
-			for (int i = 0; i <= Urls.length - 1; i++) {
-				driver.get(Urls[i]);
+			for (int i = 0; i <= urlLinks.length - 1; i++) {
+				driver.get(urlLinks[i]);
 				driver.manage().window().maximize();
 				try {
 					driver.findElement(By.id("details-button")).click();
 					driver.findElement(By.id("proceed-link")).click();
 				} catch (Exception e) {
 				}
-				if (i < Urls.length - 1) {
+				if (i < urlLinks.length - 1) {
 					((JavascriptExecutor) driver).executeScript("window.open()");
 					ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
 					driver.switchTo().window(tabs.get(tabs.size() - 1));

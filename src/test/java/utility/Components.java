@@ -683,6 +683,30 @@ public class Components {
 		return path;
 	}
 
+
+	public static String getOption() {
+		String projectType;
+		Object[] options = { "Python", "React" }; 
+		int choice = JOptionPane.showOptionDialog(null, 
+												  "Python Or React", 
+												  "Select Project Type", 
+												  JOptionPane.DEFAULT_OPTION, 
+												  JOptionPane.QUESTION_MESSAGE, 
+												  null, 
+												  options, 
+												  options[0]); 
+		if (choice == 0) {  
+			projectType = options[0].toString(); //
+		} else if (choice == 1) {  
+			projectType = options[1].toString();
+		} else {
+			projectType = null; 
+		}
+	
+		return projectType;
+	}
+	
+
 	public static void interactWithElement(Runnable elementInteraction) throws Exception {
 		int attempts = 0;
 		while (attempts < 3) {

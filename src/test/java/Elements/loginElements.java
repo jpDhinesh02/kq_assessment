@@ -6,9 +6,11 @@ import org.openqa.selenium.WebElement;
 
 public class loginElements {
     public WebDriver driver;
+    String projectType;
 
-    public loginElements(WebDriver driver) {
+    public loginElements(WebDriver driver, String ProjectType) {
         this.driver = driver;
+        this.projectType = ProjectType;
     }
 
     public WebElement email() {
@@ -20,10 +22,14 @@ public class loginElements {
     }
 
     public WebElement captchaValue() {
-        return driver.findElement(By.xpath("//span[@class=\"captcha-value\"]"));
-    }
-    public WebElement captchaValue2() {
-        return driver.findElement(By.xpath("//div[@id=\"captcha_generation\"]"));
+        if (projectType.toLowerCase().contains("python")) {
+
+            return driver.findElement(By.xpath("//div[@id=\"captcha_generation\"]"));
+        } else if (projectType.toLowerCase().replaceAll(" ", "").contains("react")) {
+            return driver.findElement(By.xpath("//span[@class=\"captcha-value\"]"));
+        } else {
+            return null;
+        }
     }
 
     public WebElement captcha() {
@@ -35,14 +41,21 @@ public class loginElements {
     }
 
     public WebElement forgetPass() {
-        return driver.findElement(By.xpath("//p[text()='Forgot Password?']"));
+
+        if (projectType.toLowerCase().contains("python")) {
+            return driver.findElement(By.xpath("//a[text()='Forgot Password?']"));
+        } else if (projectType.toLowerCase().replaceAll(" ", "").contains("react")) {
+            return driver.findElement(By.xpath("//p[text()='Forgot Password?']"));
+        } else {
+            return null;
+        }
     }
 
     public WebElement otpInput(int index) {
-        return driver.findElement(By.xpath("//input[@type=\"text\"][" + index + "]"));
+        return driver.findElement(By.xpath("(//input[@type=\"text\"])[" + index + "]"));
     }
     // public WebElement otpInput() {
-    //     return driver.findElement(By.xpath("//input[@type=\"text\"][1]"));
+    // return driver.findElement(By.xpath("//input[@type=\"text\"][1]"));
     // }
 
     public WebElement verifyBtn() {
