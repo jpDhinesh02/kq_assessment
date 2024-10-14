@@ -32,6 +32,7 @@ public class Components {
 	public static WebDriver startChrome() {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
+		options.addArguments("--ignore-certificate-errors");
 		WebDriver chromeDriver = new ChromeDriver(options);
 		return chromeDriver;
 

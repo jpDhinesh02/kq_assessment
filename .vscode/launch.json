@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "type": "java",
+          "name": "Run Allrunner Tests",
+          "request": "launch",
+          "mainClass": "org.testng.TestNG",
+          "args": [
+              "-testclass", "kqAssessment.Allrunner",
+              "-suite", "C:/Users/Dhinesh.P/OneDrive - KNOWLEDGEQ INTERACTIVE CONSULTANCY SERVICE PVT LTD/Desktop/Java/kq_assessment/src/test/java/kqAssessment/Allrunner.java",
+              "-parallel", "methods",
+              "-threadcount", "2"
+          ],
+          "vmArgs": "-Dfile.encoding=UTF-8",
+          
+      }
+  ]
+}

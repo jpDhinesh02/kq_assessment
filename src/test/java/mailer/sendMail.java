@@ -16,7 +16,8 @@ import utility.extentReports;
 public class sendMail {
 
     public static void sendMailToUser(String toMail, WebDriver driver) throws IOException, InterruptedException {
-
+        String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+        System.out.println("Current method: " + methodName);
         runBatchFile();
         String BASE_URL = "http://localhost:3000/mail";
         if (driver != null) {

@@ -37,7 +37,13 @@ public class loginElements {
     }
 
     public WebElement loginBtn() {
-        return driver.findElement(By.xpath("//button[text()='Login']"));
+        if (projectType.toLowerCase().contains("python")) {
+            return driver.findElement(By.xpath("//button[@id=\"button\"]"));
+        } else if (projectType.toLowerCase().replaceAll(" ", "").contains("react")) {
+            return driver.findElement(By.xpath("//button[text()='Login']"));
+        } else {
+            return null;
+        }
     }
 
     public WebElement forgetPass() {
@@ -59,7 +65,7 @@ public class loginElements {
     // }
 
     public WebElement verifyBtn() {
-        return driver.findElement(By.xpath("//button[text()='Verify']"));
+        return driver.findElement(By.xpath("//button"));
     }
 
     public WebElement newPass() {
@@ -71,6 +77,6 @@ public class loginElements {
     }
 
     public WebElement submitBtn() {
-        return driver.findElement(By.xpath("//button[text()='Submit']"));
+        return driver.findElement(By.xpath("(//button)[3]"));
     }
 }
