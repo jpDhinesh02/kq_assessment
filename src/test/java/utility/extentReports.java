@@ -25,14 +25,18 @@ public class extentReports {
 	public static String mailformattedDateTime;
 
 	public static void initalizeExtent(String fileName) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HHmmss");
-		formattedDateTime = currentDateTime.format(formatter);
-		ExtentSparkReporter htmlReporter = new ExtentSparkReporter("./Reports/" + fileName + "_" + formattedDateTime);
-		extent = new ExtentReports();
-		extent.attachReporter(htmlReporter);
-		mailfileName = fileName;
-		mailformattedDateTime = formattedDateTime;
-		htmlReporter.config().setTheme(Theme.DARK);
+		if (extent == null) {
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HHmmss");
+			formattedDateTime = currentDateTime.format(formatter);
+			ExtentSparkReporter htmlReporter = new ExtentSparkReporter(
+					"./Reports/" + fileName + "_" + formattedDateTime);
+			extent = new ExtentReports();
+			extent.attachReporter(htmlReporter);
+			mailfileName = fileName;
+			mailformattedDateTime = formattedDateTime;
+			htmlReporter.config().setTheme(Theme.DARK);
+		}
 	}
 
 	public static void createTest(String PBname, String testDesription) {

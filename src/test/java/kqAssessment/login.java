@@ -13,16 +13,25 @@ import utility.getPassword;
 import utility.jsonUtilites;
 
 public class login {
+    public String projectType;
+    public WebDriver driver;
+
+    public login(WebDriver driver, String projectType) {
+        this.projectType = projectType;
+        this.driver = driver;
+    }
+
+    static loginElements loginEle;
     String jsonPath = System.getProperty("user.dir") + "/data/loginCredentials.json";
 
-    public void loginWeb(WebDriver driver, String projectType) throws Exception {
+    public void loginWeb() throws Exception {
 
         String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         System.out.println("Current method: " + methodName);
         extentReports.createTest("login_kq", "Test for login kq Assessment");
         try {
-            Components.implicitlyWait(driver, 60);
-            loginElements loginEle = new loginElements(driver, projectType);
+            Components.implicitlyWait(driver, 20);
+            loginEle = new loginElements(driver, projectType);
             String userName = jsonUtilites.getJsonValue(0, jsonPath, "users", "username");
             String password = getPassword.getUserPassword(userName);
             loginEle.email().sendKeys(userName);
@@ -31,7 +40,7 @@ public class login {
             captchaValue = loginEle.captchaValue().getText();
             loginEle.captcha().sendKeys(captchaValue);
             loginEle.loginBtn().click();
-            otp(driver, userName, "login", projectType);
+            otp(driver, userName, "login");
             loginEle.verifyBtn().click();
             extentReports.logPass("Successfully login with Kq Assessment");
         } catch (Exception e) {
@@ -39,17 +48,17 @@ public class login {
         }
     }
 
-    public void forgetPassword(WebDriver driver, String projectType) throws Exception {
+    public void forgetPassword() throws Exception {
         String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         System.out.println("Current method: " + methodName);
         extentReports.createTest("ForgetPassword_KQ", "Test for kq Assessment forget Password ");
         try {
-            Components.implicitlyWait(driver, 60);
+            Components.implicitlyWait(driver, 20);
             loginElements loginEle = new loginElements(driver, projectType);
             String userName = jsonUtilites.getJsonValue(0, jsonPath, "users", "username");
             loginEle.email().sendKeys(userName);
             loginEle.forgetPass().click();
-            otp(driver, userName, "forget password", projectType);
+            otp(driver, userName, "forget password");
             loginEle.verifyBtn().click();
             loginEle.newPass().sendKeys(jsonUtilites.getJsonValue(jsonPath, "newpass"));
             loginEle.cnfrmPass().sendKeys(jsonUtilites.getJsonValue(jsonPath, "confrmpass"));
@@ -64,13 +73,13 @@ public class login {
 
     }
 
-    public void logout(WebDriver driver) {
+    public void logout() {
         String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         System.out.println("Current method: " + methodName);
         driver.findElement(By.xpath("//button[text()='Logout']")).click();
     }
 
-    public static void otp(WebDriver driver, String username, String page, String projectType)
+    public static void otp(WebDriver driver, String username, String page)
             throws IOException, InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         String otp;
@@ -84,7 +93,6 @@ public class login {
         }
         wait.until(
                 ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[text()='OTP Verification']"))));
-        loginElements loginEle = new loginElements(driver, projectType);
         char[] otpArray = otp.toCharArray();
         for (int i = 1; i <= 6; i++) {
             otp = String.valueOf(otpArray[i - 1]);

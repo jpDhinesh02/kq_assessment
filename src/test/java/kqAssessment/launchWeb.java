@@ -9,8 +9,15 @@ import org.openqa.selenium.WebDriver;
 import utility.extentReports;
 
 public class launchWeb {
+	public String projectType;
+    public WebDriver driver;
 
-	public void launchKqWeb(WebDriver driver, String projectType) throws Exception {
+    public launchWeb(WebDriver driver, String projectType) {
+        this.projectType = projectType;
+        this.driver = driver;
+    }
+
+	public void launchKqWeb() throws Exception {
 		extentReports.createTest("Launch_Kq_Assessment", "Test for launch Application");
 		try {
 			System.out.println("launchKqWeb");
