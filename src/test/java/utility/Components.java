@@ -37,6 +37,7 @@ public class Components {
 		return chromeDriver;
 
 	}
+
 	public static WebDriver startChromeHeadless() {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--headless");
@@ -684,29 +685,18 @@ public class Components {
 		return path;
 	}
 
-
-	public static String getOption() {
+	public static String getOption(String... options) {
 		String projectType;
-		Object[] options = { "Python", "React" }; 
-		int choice = JOptionPane.showOptionDialog(null, 
-												  "Python Or React", 
-												  "Select Project Type", 
-												  JOptionPane.DEFAULT_OPTION, 
-												  JOptionPane.QUESTION_MESSAGE, 
-												  null, 
-												  options, 
-												  options[0]); 
-		if (choice == 0) {  
-			projectType = options[0].toString(); //
-		} else if (choice == 1) {  
-			projectType = options[1].toString();
+		int choice = JOptionPane.showOptionDialog(null, "Python Or React", "Select Project Type",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		if (choice >= 0 && choice < options.length) {
+			projectType = options[choice];
 		} else {
-			projectType = null; 
+			projectType = null;
 		}
-	
+
 		return projectType;
 	}
-	
 
 	public static void interactWithElement(Runnable elementInteraction) throws Exception {
 		int attempts = 0;
@@ -723,18 +713,18 @@ public class Components {
 	}
 
 	public static void retryOnStaleElement(Runnable elementInteraction) throws Exception {
-        int attempts = 0;
-        boolean success = false;
-        while (attempts < 3 && !success) {
-            try {
-                elementInteraction.run();
-                success = true;
-            } catch (StaleElementReferenceException e) {
-                attempts++;
-                if (attempts == 3) {
-                    throw e;
-                }
-            }
-        }
-    }
+		int attempts = 0;
+		boolean success = false;
+		while (attempts < 3 && !success) {
+			try {
+				elementInteraction.run();
+				success = true;
+			} catch (StaleElementReferenceException e) {
+				attempts++;
+				if (attempts == 3) {
+					throw e;
+				}
+			}
+		}
+	}
 }

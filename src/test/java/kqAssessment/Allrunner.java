@@ -16,15 +16,15 @@ public class Allrunner {
 
     @BeforeTest
     public void setup() {
-        projectType = Components.getOption();
+        projectType = Components.getOption("Python", "React" ,"Dijango" ,"Sql");
         driver = Components.startChrome();
-        login = new login(driver,projectType);
-        launch = new launchWeb(driver,projectType);
+        login = new login(driver, projectType);
+        launch = new launchWeb(driver, projectType);
         extentReports.initalizeExtent("kqAssessment ");
     }
 
     @Test
-    public void chromeRunner() throws Exception {
+    public void Runner() throws Exception {
         launch.launchKqWeb();
         login.loginWeb();
         login.logout();
@@ -32,11 +32,11 @@ public class Allrunner {
         login.loginWeb();
     }
 
-
     @AfterTest
     public void tearDown() throws Exception {
         extentReports.flush();
-        sendMail.sendMailToUser("dhinesh.p@knoawledgeq.com", driver);
+        sendMail.sendMailToUser("dhinesh.p@knowledgeq.com", driver);
+        driver.quit();
     }
 
 }

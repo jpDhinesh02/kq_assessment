@@ -10,25 +10,26 @@ import utility.extentReports;
 
 public class launchWeb {
 	public String projectType;
-    public WebDriver driver;
+	public WebDriver driver;
 
-    public launchWeb(WebDriver driver, String projectType) {
-        this.projectType = projectType;
-        this.driver = driver;
-    }
+	public launchWeb(WebDriver driver, String projectType) {
+		this.projectType = projectType;
+		this.driver = driver;
+	}
 
 	public void launchKqWeb() throws Exception {
 		extentReports.createTest("Launch_Kq_Assessment", "Test for launch Application");
 		try {
-			System.out.println("launchKqWeb");
 			String[] urlLinks;
-			System.err.println("projectType>>>>"+projectType);
+			System.err.println("projectType>>>>" + projectType);
 			System.err.println(projectType.toLowerCase().contains("python"));
 			if (projectType.toLowerCase().contains("python")) {
-				// urlLinks = new String[] { "https://172.26.10.5:3001/", "http://172.26.10.5:8000/" };
-				urlLinks = new String[] {"http://172.26.10.5:8000/" };
+				// urlLinks = new String[] { "https://172.26.10.5:3001/",
+				// "http://172.26.10.5:8000/" };
+				urlLinks = new String[] { "http://172.26.10.5:8000/" };
 			} else if (projectType.toLowerCase().contains("react")) {
-				// urlLinks = new String[] { "https://172.26.10.5:3001/", "https://172.26.10.5:3000/" };
+				// urlLinks = new String[] { "https://172.26.10.5:3001/",
+				// "https://172.26.10.5:3000/" };
 				urlLinks = new String[] { "https://172.26.10.5:3000/" };
 			} else {
 				throw new Exception("Unsupported project type: " + projectType);

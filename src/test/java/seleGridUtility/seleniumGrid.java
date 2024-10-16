@@ -24,7 +24,6 @@ public class seleniumGrid {
     private static void runBatchFile() {
         String batPath[] = { System.getProperty("user.dir") + "//src//test//java//Utility//startHub.bat",
                 System.getProperty("user.dir") + "//src//test//java//Utility//connectNode.bat" };
-        System.out.println("batPath>>>>" + batPath);
 
         for (int i = 0; i <= batPath.length - 1; i++) {
             try {
@@ -32,7 +31,6 @@ public class seleniumGrid {
                 ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", batchFilePath);
                 processBuilder.inheritIO();
                 processBuilder.start();
-                System.out.println("Batch file executed");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -26,8 +26,6 @@ public class login {
 
     public void loginWeb() throws Exception {
 
-        String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-        System.out.println("Current method: " + methodName);
         extentReports.createTest("login_kq", "Test for login kq Assessment");
         try {
             Components.implicitlyWait(driver, 20);
@@ -49,8 +47,7 @@ public class login {
     }
 
     public void forgetPassword() throws Exception {
-        String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-        System.out.println("Current method: " + methodName);
+
         extentReports.createTest("ForgetPassword_KQ", "Test for kq Assessment forget Password ");
         try {
             Components.implicitlyWait(driver, 20);
@@ -74,8 +71,7 @@ public class login {
     }
 
     public void logout() {
-        String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-        System.out.println("Current method: " + methodName);
+
         driver.findElement(By.xpath("//button[text()='Logout']")).click();
     }
 
@@ -86,7 +82,6 @@ public class login {
         if (page.toLowerCase().replaceAll(" ", "").equals("login")) {
             otp = getPassword.getLoginEmailOtp(username);
         } else if (page.toLowerCase().replaceAll(" ", "").equals("forgetpassword")) {
-            System.out.println("otp else");
             otp = getPassword.getForgotPasswordMobileOtp(username);
         } else {
             otp = null;

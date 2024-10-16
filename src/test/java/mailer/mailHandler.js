@@ -12,7 +12,6 @@ const transporter = nodemailer.createTransport({
 
 const sendMail = (req, res) => {
   const { to, subject, text, attachments } = req.body;
-  
 
   // Check for required fields
   if (!to || !subject || !text) {
@@ -21,11 +20,12 @@ const sendMail = (req, res) => {
     });
   }
 
-  const attachmentPaths = attachments ? attachments.map(att => ({
-    filename: path.basename(att.path), 
-    path: path.resolve(att.path) 
-    
-  })) : [];
+  const attachmentPaths = attachments
+    ? attachments.map((att) => ({
+        filename: path.basename(att.path),
+        path: path.resolve(att.path),
+      }))
+    : [];
 
   attachmentPaths.forEach((attachment) => {
     console.log(`Checking file: ${attachment.path}`);
@@ -37,21 +37,22 @@ const sendMail = (req, res) => {
       }
     });
   });
+    const mailOptions = {
 
-  const mailOptions = {
-    from: "jpdhinesh2002@gmail.com",
-    to,
-    subject,
-    text,
-    attachments: attachmentPaths, 
-  };
+      from: "jpdhinesh2002@gmail.com",
+      to,
+      subject,
+      text,
+      attachments: attachmentPaths,
+    };
+  
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return res.status(500).json({ message: `Error: ${error.message}` });
     }
     res.status(200).json({ message: `Email sent: ${info.response}` });
-    console.log("Email sent to ",to," successfully.");
+    console.log("Email sent to ", to, " successfully.");
   });
 };
 
