@@ -22,7 +22,6 @@ public class launchWeb {
 		try {
 			String[] urlLinks;
 			System.err.println("projectType>>>>" + projectType);
-			System.err.println(projectType.toLowerCase().contains("python"));
 			if (projectType.toLowerCase().contains("python")) {
 				// urlLinks = new String[] { "https://172.26.10.5:3001/",
 				// "http://172.26.10.5:8000/" };
