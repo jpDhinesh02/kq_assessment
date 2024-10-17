@@ -21,14 +21,14 @@ public class loginElements {
         return driver.findElement(By.xpath("//input[@type=\"password\"]"));
     }
 
-    public WebElement captchaValue() {
+    public WebElement captchaValue() throws Exception{
         if (projectType.toLowerCase().contains("python")) {
 
             return driver.findElement(By.xpath("//div[@id=\"captcha_generation\"]"));
-        } else if (projectType.toLowerCase().replaceAll(" ", "").contains("react")) {
+        } else if (projectType.toLowerCase().contains("react")) {
             return driver.findElement(By.xpath("//span[@class=\"captcha-value\"]"));
         } else {
-            return null;
+            throw new Exception("Unsupported project type: " + projectType);
         }
     }
 
@@ -36,24 +36,24 @@ public class loginElements {
         return driver.findElement(By.xpath("//input[@type=\"text\"]"));
     }
 
-    public WebElement loginBtn() {
+    public WebElement loginBtn() throws Exception {
         if (projectType.toLowerCase().contains("python")) {
             return driver.findElement(By.xpath("//button[@id=\"button\"]"));
-        } else if (projectType.toLowerCase().replaceAll(" ", "").contains("react")) {
+        } else if (projectType.toLowerCase().contains("react")) {
             return driver.findElement(By.xpath("//button[text()='Login']"));
         } else {
-            return null;
+            throw new Exception("Unsupported project type: " + projectType);
         }
     }
 
-    public WebElement forgetPass() {
+    public WebElement forgetPass() throws Exception{
 
         if (projectType.toLowerCase().contains("python")) {
             return driver.findElement(By.xpath("//a[text()='Forgot Password?']"));
-        } else if (projectType.toLowerCase().replaceAll(" ", "").contains("react")) {
+        } else if (projectType.toLowerCase().contains("react")) {
             return driver.findElement(By.xpath("//p[text()='Forgot Password?']"));
         } else {
-            return null;
+            throw new Exception("Unsupported project type: " + projectType);
         }
     }
 

@@ -1,6 +1,8 @@
 package mailer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import org.openqa.selenium.By;
@@ -16,8 +18,7 @@ import utility.extentReports;
 public class sendMail {
 
     public static void sendMailToUser(String toMail, WebDriver driver) throws IOException, InterruptedException {
-        String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-        
+
         runBatchFile();
         String BASE_URL = "http://localhost:3000/mail";
         if (driver != null) {
@@ -31,7 +32,7 @@ public class sendMail {
         }
 
         driver.get(BASE_URL);
-       
+
         while (driver.findElement(By.xpath("//pre[text()='Cannot GET /mail']")).isDisplayed()) {
             try {
                 break;
@@ -65,6 +66,8 @@ public class sendMail {
                 .extract()
                 .response();
         String responseBody = response.asString();
+        System.out.println("responseBody>>" + responseBody);
+        killProcessOnPort();
     }
 
     private static void runBatchFile() {
@@ -78,4 +81,27 @@ public class sendMail {
         }
 
     }
+
+    public static void killProcessOnPort() {
+        try {
+            int port = 3000;
+            String command = "cmd.exe /c netstat -ano | findstr :" + port;
+            Process process = Runtime.getRuntime().exec(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                String[] tokens = line.trim().split("\\s+");
+                String pid = tokens[tokens.length - 1];
+
+                String killCommand = "taskkill /F /PID " + pid;
+                Runtime.getRuntime().exec(killCommand);
+                System.out.println("Killed process using port " + port + " with PID: " + pid);
+            } else {
+                System.out.println("No process is using port " + port);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

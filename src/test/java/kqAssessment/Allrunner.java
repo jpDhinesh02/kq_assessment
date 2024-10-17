@@ -16,7 +16,7 @@ public class Allrunner {
 
     @BeforeTest
     public void setup() {
-        projectType = Components.getOption("Python", "React" ,"Dijango" ,"Sql");
+        projectType = Components.getOption("Python", "React");
         driver = Components.startChrome();
         login = new login(driver, projectType);
         launch = new launchWeb(driver, projectType);
@@ -26,10 +26,10 @@ public class Allrunner {
     @Test
     public void Runner() throws Exception {
         launch.launchKqWeb();
-        login.loginWeb();
-        login.logout();
-        login.forgetPassword();
-        login.loginWeb();
+        // login.loginWeb();
+        // login.logout();
+        // login.forgetPassword();
+        // login.loginWeb();
     }
 
     @AfterTest

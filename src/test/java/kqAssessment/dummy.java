@@ -1,15 +1,18 @@
 package kqAssessment;
 
-import utility.getPassword;
+import mailer.sendMail;
 
 public class dummy {
     public static void main(String[] args) throws Exception {
-        System.out.println("getLoginEmailOtp>>>>" + getPassword.getLoginEmailOtp("dhinesh.p@knowledgeq.com"));
-        System.out.println("getLoginMobileOtp>>>>" + getPassword.getLoginMobileOtp("dhinesh.p@knowledgeq.com"));
-        System.out.println(
-                "getforgotPasswordEmailOtp>>>>" + getPassword.getForgotPasswordEmailOtp("dhinesh.p@knowledgeq.com"));
-        System.out.println(
-                "getforgotPasswordMobileOtp>>>>" + getPassword.getForgotPasswordMobileOtp("dhinesh.p@knowledgeq.com"));
-        System.out.println("getpassword>>>>" + getPassword.getUserPassword("dhinesh.p@knowledgeq.com"));
+        // fun(1, 2, 3, 4,5,6,7);
+        sendMail.killProcessOnPort();
+    }
+
+    static void fun(int... a) {
+        System.out.println("Number of arguments: "+ a.length);
+        int j =0;
+        for (int i : a)
+          j=i+j;
+        System.out.println("sum of fun>>> "+j);
     }
 }

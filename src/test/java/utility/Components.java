@@ -688,7 +688,7 @@ public class Components {
 	public static String getOption(String... options) {
 		String projectType;
 		int choice = JOptionPane.showOptionDialog(null, "Python Or React", "Select Project Type",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,null);
 		if (choice >= 0 && choice < options.length) {
 			projectType = options[choice];
 		} else {
