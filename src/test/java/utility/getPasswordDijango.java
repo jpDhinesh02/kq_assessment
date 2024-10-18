@@ -7,10 +7,9 @@ import io.restassured.RestAssured;
 import io.restassured.config.SSLConfig;
 import io.restassured.response.Response;
 
-public class getPasswordDijango {                                   
+public class getPasswordDijango {
     static String BASE_URL = "http://172.26.10.5:8000";
 
-    // Common method to retrieve OTPs and password
     private static JsonNode getApiResponse(String email) throws IOException, InterruptedException {
         Thread.sleep(1000);
         RestAssured.config = RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation());
@@ -37,7 +36,7 @@ public class getPasswordDijango {
 
     public static String getLoginMobileOtp(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
-       
+
         if (results == null || results.isMissingNode()) {
             System.out.println("No results found in response.");
             return null;
@@ -47,7 +46,6 @@ public class getPasswordDijango {
 
     public static String getLoginEmailOtp(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
-        System.out.println("results>>>"+results.toString());
 
         if (results == null || results.isMissingNode()) {
             System.out.println("No results found in response.");

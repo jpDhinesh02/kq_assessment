@@ -1,8 +1,5 @@
 package kqAssessment;
-import utility.Components;
 import utility.getPassword;
-import utility.jsonUtilites;
-
 public class dummy {
     public static void main(String[] args) throws Exception {
         String userName = "dhinesh.p@knowledgeq.com";

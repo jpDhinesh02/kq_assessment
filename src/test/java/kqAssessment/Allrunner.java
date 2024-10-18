@@ -35,7 +35,7 @@ public class Allrunner {
     @AfterTest
     public void tearDown() throws Exception {
         extentReports.flush();
-        // sendMail.sendMailToUser("dhinesh.p@knowledgeq.com", driver);
+        sendMail.sendMailToUser("dhinesh.p@knowledgeq.com", driver);
         driver.quit();
     }
 
