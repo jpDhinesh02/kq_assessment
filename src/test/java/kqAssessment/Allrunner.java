@@ -9,10 +9,10 @@ import utility.Components;
 import utility.extentReports;
 
 public class Allrunner {
-    static login login;
-    static launchWeb launch;
-    static WebDriver driver;
     String projectType;
+    WebDriver driver;
+    login login;
+    launchWeb launch;
 
     @BeforeTest
     public void setup() {
@@ -20,7 +20,7 @@ public class Allrunner {
         driver = Components.startChrome();
         login = new login(driver, projectType);
         launch = new launchWeb(driver, projectType);
-        extentReports.initalizeExtent("kqAssessment ");
+        extentReports.initalizeExtent("kqAssessment_" + projectType);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class Allrunner {
     @AfterTest
     public void tearDown() throws Exception {
         extentReports.flush();
-        sendMail.sendMailToUser("dhinesh.p@knowledgeq.com", driver);
+        // sendMail.sendMailToUser("dhinesh.p@knowledgeq.com", driver);
         driver.quit();
     }
 

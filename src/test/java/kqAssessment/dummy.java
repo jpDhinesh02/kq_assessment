@@ -1,12 +1,14 @@
 package kqAssessment;
-import utility.getPasswordDijango;
+import utility.Components;
+import utility.getPassword;
+import utility.jsonUtilites;
 
 public class dummy {
     public static void main(String[] args) throws Exception {
-        System.out.println("getLoginEmailOtp>>>" + getPasswordDijango.getLoginEmailOtp("dhinesh.p@knowledgeq.com"));
-        System.out.println("getForgotPasswordMobileOtp>>>"
-                + getPasswordDijango.getForgotPasswordMobileOtp("dhinesh.p@knowledgeq.com"));
-        System.out.println("getUserPassword>>>" + getPasswordDijango.getUserPassword("dhinesh.p@knowledgeq.com"));
+        String userName = "dhinesh.p@knowledgeq.com";
+     System.out.println( getPassword.getLoginEmailOtp(userName));
+     System.out.println( getPassword.getUserPassword(userName));
+      System.out.println(getPassword.getForgotPasswordMobileOtp(userName));
     }
 
 }

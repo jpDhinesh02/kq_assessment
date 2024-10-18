@@ -27,13 +27,12 @@ public class login {
 
     public void loginWeb() throws Exception {
 
-        extentReports.createTest("login_kq", "Test for login kq Assessment");
+        extentReports.createTest("Login_KqAssessment", "Test for login kq Assessment");
         try {
             Components.implicitlyWait(driver, 20);
             loginEle = new loginElements(driver, projectType);
             String userName = jsonUtilites.getJsonValue(0, jsonPath, "users", "username");
             String password;
-            System.out.println("projectType.contains(\"react\")>>>>" + projectType.contains("react"));
             if (projectType.contains("react")) {
                 password = getPassword.getUserPassword(userName);
             } else {
@@ -45,6 +44,7 @@ public class login {
             captchaValue = loginEle.captchaValue().getText();
             loginEle.captcha().sendKeys(captchaValue);
             loginEle.loginBtn().click();
+            Thread.sleep(2000);
             if (projectType.contains("react")) {
                 otpReact(driver, userName, "login");
             } else {
@@ -59,21 +59,26 @@ public class login {
 
     public void forgetPassword() throws Exception {
 
-        extentReports.createTest("ForgetPassword_KQ", "Test for kq Assessment forget Password ");
+        extentReports.createTest("ForgetPassword_KqAssessment", "Test for kq Assessment forget Password ");
         try {
             Components.implicitlyWait(driver, 20);
             loginElements loginEle = new loginElements(driver, projectType);
             String userName = jsonUtilites.getJsonValue(0, jsonPath, "users", "username");
             loginEle.email().sendKeys(userName);
             loginEle.forgetPass().click();
+            Thread.sleep(2000);
             if (projectType.contains("react")) {
                 otpReact(driver, userName, "forget password");
             } else {
                 otpDijango(driver, userName, "forget password");
             }
             loginEle.verifyBtn().click();
-            loginEle.newPass().sendKeys(jsonUtilites.getJsonValue(jsonPath, "newpass"));
-            loginEle.cnfrmPass().sendKeys(jsonUtilites.getJsonValue(jsonPath, "confrmpass"));
+            String newPassword = Components.shuffleString(jsonUtilites.getJsonValue(jsonPath, "newpass"));
+            String confirmPassword = newPassword;
+            loginEle.newPass().sendKeys(newPassword);
+            loginEle.cnfrmPass().sendKeys(confirmPassword);
+            jsonUtilites.updateJsonValue(jsonPath, "newpass", newPassword);
+            jsonUtilites.updateJsonValue(jsonPath, "confrmpass", confirmPassword);
             loginEle.submitBtn().click();
             Thread.sleep(1000);
             driver.findElement(By.xpath("//button[1]")).click();
@@ -97,6 +102,8 @@ public class login {
             throws IOException, InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         String otp;
+        System.out.println("page.toLowerCase().replaceAll(\" \", \"\").equals(\"forgetpassword\")>>>>"
+                + page.toLowerCase().replaceAll(" ", "").equals("forgetpassword"));
         if (page.toLowerCase().replaceAll(" ", "").equals("login")) {
             otp = getPassword.getLoginEmailOtp(username);
         } else if (page.toLowerCase().replaceAll(" ", "").equals("forgetpassword")) {

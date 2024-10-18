@@ -65,7 +65,7 @@ public class loginElements {
     // }
 
     public WebElement verifyBtn() {
-        return driver.findElement(By.xpath("(//button)[2]"));
+        return driver.findElement(By.xpath("//*[text()='Verify']"));
     }
 
     public WebElement newPass() {

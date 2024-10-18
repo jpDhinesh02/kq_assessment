@@ -3,6 +3,7 @@ package utility;
 import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
@@ -727,4 +728,17 @@ public class Components {
 			}
 		}
 	}
+
+	 public static String shuffleString(String input) {
+        char[] characters = input.toCharArray();
+        Random random = new Random();
+        for (int i = 0; i < characters.length; i++) {
+            int randomIndex = random.nextInt(characters.length);
+            char temp = characters[i];
+            characters[i] = characters[randomIndex];
+            characters[randomIndex] = temp;
+        }
+
+        return new String(characters);
+    }
 }

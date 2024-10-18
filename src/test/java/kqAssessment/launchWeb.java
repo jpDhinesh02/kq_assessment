@@ -18,7 +18,7 @@ public class launchWeb {
 	}
 
 	public void launchKqWeb() throws Exception {
-		extentReports.createTest("Launch_Kq_Assessment", "Test for launch Application");
+		extentReports.createTest("Launch_KqAssessment", "Test for launch Application");
 		try {
 			String[] urlLinks;
 			System.err.println("projectType>>>>" + projectType);

@@ -40,7 +40,7 @@ public class extentReports {
 	}
 
 	public static void createTest(String PBname, String testDesription) {
-		test1 = extent.createTest(PBname + "_" + formattedDateTime, testDesription);
+		test1 = extent.createTest(PBname, testDesription);
 
 	}
 
