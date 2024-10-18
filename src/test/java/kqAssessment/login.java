@@ -10,6 +10,7 @@ import Elements.loginElements;
 import utility.Components;
 import utility.extentReports;
 import utility.getPassword;
+import utility.getPasswordDijango;
 import utility.jsonUtilites;
 
 public class login {
@@ -31,14 +32,24 @@ public class login {
             Components.implicitlyWait(driver, 20);
             loginEle = new loginElements(driver, projectType);
             String userName = jsonUtilites.getJsonValue(0, jsonPath, "users", "username");
-            String password = getPassword.getUserPassword(userName);
+            String password;
+            System.out.println("projectType.contains(\"react\")>>>>" + projectType.contains("react"));
+            if (projectType.contains("react")) {
+                password = getPassword.getUserPassword(userName);
+            } else {
+                password = getPasswordDijango.getUserPassword(userName);
+            }
             loginEle.email().sendKeys(userName);
             loginEle.password().sendKeys(password);
             String captchaValue;
             captchaValue = loginEle.captchaValue().getText();
             loginEle.captcha().sendKeys(captchaValue);
             loginEle.loginBtn().click();
-            otp(driver, userName, "login");
+            if (projectType.contains("react")) {
+                otpReact(driver, userName, "login");
+            } else {
+                otpDijango(driver, userName, "login");
+            }
             loginEle.verifyBtn().click();
             extentReports.logPass("Successfully login with Kq Assessment");
         } catch (Exception e) {
@@ -55,7 +66,11 @@ public class login {
             String userName = jsonUtilites.getJsonValue(0, jsonPath, "users", "username");
             loginEle.email().sendKeys(userName);
             loginEle.forgetPass().click();
-            otp(driver, userName, "forget password");
+            if (projectType.contains("react")) {
+                otpReact(driver, userName, "forget password");
+            } else {
+                otpDijango(driver, userName, "forget password");
+            }
             loginEle.verifyBtn().click();
             loginEle.newPass().sendKeys(jsonUtilites.getJsonValue(jsonPath, "newpass"));
             loginEle.cnfrmPass().sendKeys(jsonUtilites.getJsonValue(jsonPath, "confrmpass"));
@@ -71,11 +86,14 @@ public class login {
     }
 
     public void logout() {
-
-        driver.findElement(By.xpath("//button[text()='Logout']")).click();
+        if (projectType.contains("react")) {
+            driver.findElement(By.xpath("//button[text()='Logout']")).click();
+        } else {
+            driver.navigate().refresh();
+        }
     }
 
-    public static void otp(WebDriver driver, String username, String page)
+    public static void otpReact(WebDriver driver, String username, String page)
             throws IOException, InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         String otp;
@@ -83,6 +101,26 @@ public class login {
             otp = getPassword.getLoginEmailOtp(username);
         } else if (page.toLowerCase().replaceAll(" ", "").equals("forgetpassword")) {
             otp = getPassword.getForgotPasswordMobileOtp(username);
+        } else {
+            otp = null;
+        }
+        wait.until(
+                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[text()='OTP Verification']"))));
+        char[] otpArray = otp.toCharArray();
+        for (int i = 1; i <= 6; i++) {
+            otp = String.valueOf(otpArray[i - 1]);
+            loginEle.otpInput(i).sendKeys(otp);
+        }
+    }
+
+    public static void otpDijango(WebDriver driver, String username, String page)
+            throws IOException, InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        String otp;
+        if (page.toLowerCase().replaceAll(" ", "").equals("login")) {
+            otp = getPasswordDijango.getLoginEmailOtp(username);
+        } else if (page.toLowerCase().replaceAll(" ", "").equals("forgetpassword")) {
+            otp = getPasswordDijango.getForgotPasswordMobileOtp(username);
         } else {
             otp = null;
         }

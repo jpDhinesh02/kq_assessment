@@ -22,13 +22,9 @@ public class launchWeb {
 		try {
 			String[] urlLinks;
 			System.err.println("projectType>>>>" + projectType);
-			if (projectType.toLowerCase().contains("python")) {
-				// urlLinks = new String[] { "https://172.26.10.5:3001/",
-				// "http://172.26.10.5:8000/" };
+			if (projectType.contains("python")) {
 				urlLinks = new String[] { "http://172.26.10.5:8000/" };
-			} else if (projectType.toLowerCase().contains("react")) {
-				// urlLinks = new String[] { "https://172.26.10.5:3001/",
-				// "https://172.26.10.5:3000/" };
+			} else if (projectType.contains("react")) {
 				urlLinks = new String[] { "https://172.26.10.5:3000/" };
 			} else {
 				throw new Exception("Unsupported project type: " + projectType);

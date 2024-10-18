@@ -22,10 +22,10 @@ public class loginElements {
     }
 
     public WebElement captchaValue() throws Exception{
-        if (projectType.toLowerCase().contains("python")) {
+        if (projectType.contains("python")) {
 
             return driver.findElement(By.xpath("//div[@id=\"captcha_generation\"]"));
-        } else if (projectType.toLowerCase().contains("react")) {
+        } else if (projectType.contains("react")) {
             return driver.findElement(By.xpath("//span[@class=\"captcha-value\"]"));
         } else {
             throw new Exception("Unsupported project type: " + projectType);
@@ -37,9 +37,9 @@ public class loginElements {
     }
 
     public WebElement loginBtn() throws Exception {
-        if (projectType.toLowerCase().contains("python")) {
+        if (projectType.contains("python")) {
             return driver.findElement(By.xpath("//button[@id=\"button\"]"));
-        } else if (projectType.toLowerCase().contains("react")) {
+        } else if (projectType.contains("react")) {
             return driver.findElement(By.xpath("//button[text()='Login']"));
         } else {
             throw new Exception("Unsupported project type: " + projectType);
@@ -48,9 +48,9 @@ public class loginElements {
 
     public WebElement forgetPass() throws Exception{
 
-        if (projectType.toLowerCase().contains("python")) {
+        if (projectType.contains("python")) {
             return driver.findElement(By.xpath("//a[text()='Forgot Password?']"));
-        } else if (projectType.toLowerCase().contains("react")) {
+        } else if (projectType.contains("react")) {
             return driver.findElement(By.xpath("//p[text()='Forgot Password?']"));
         } else {
             throw new Exception("Unsupported project type: " + projectType);
@@ -65,7 +65,7 @@ public class loginElements {
     // }
 
     public WebElement verifyBtn() {
-        return driver.findElement(By.xpath("//button"));
+        return driver.findElement(By.xpath("(//button)[2]"));
     }
 
     public WebElement newPass() {
