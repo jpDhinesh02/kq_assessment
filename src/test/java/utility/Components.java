@@ -1,22 +1,15 @@
 package utility;
 
-import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -291,7 +284,7 @@ public class Components {
 
 	public static void switchToAlert(WebDriver driver) {
 		try {
-			Alert alert = driver.switchTo().alert();
+			driver.switchTo().alert();
 		} catch (NoAlertPresentException e) {
 			System.out.println("Alert is not present.");
 		}
