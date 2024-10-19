@@ -98,7 +98,8 @@ public class login {
         }
     }
 
-    public static void otpReact(WebDriver driver, String username, String page)
+    //? Helper function to get the current OTP
+    private static void otpReact(WebDriver driver, String username, String page)
             throws IOException, InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         String otp;
@@ -120,7 +121,8 @@ public class login {
         }
     }
 
-    public static void otpDijango(WebDriver driver, String username, String page)
+    //? Helper function to get the current OTP
+    private static void otpDijango(WebDriver driver, String username, String page)
             throws IOException, InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         String otp;

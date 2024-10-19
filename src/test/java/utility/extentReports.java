@@ -21,20 +21,18 @@ public class extentReports {
 	static String formattedDateTime;
 	File destination;
 	static String dest;
-	public static String mailfileName;
-	public static String mailformattedDateTime;
+	public static String reportFileName;
 
 	public static void initalizeExtent(String fileName) {
 		if (extent == null) {
 
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HHmmss");
 			formattedDateTime = currentDateTime.format(formatter);
-			ExtentSparkReporter htmlReporter = new ExtentSparkReporter(
-					"./Reports/" + fileName + "_" + formattedDateTime);
+			reportFileName =  fileName + "_" + formattedDateTime;
+			ExtentSparkReporter htmlReporter = new ExtentSparkReporter("./Reports/" +reportFileName);
 			extent = new ExtentReports();
 			extent.attachReporter(htmlReporter);
-			mailfileName = fileName;
-			mailformattedDateTime = formattedDateTime;
+			System.out.println(System.getProperty("user.dir")+reportFileName);
 			htmlReporter.config().setTheme(Theme.DARK);
 		}
 	}
