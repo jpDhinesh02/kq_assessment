@@ -16,14 +16,14 @@ import utility.jsonUtilites;
 public class login {
     public String projectType;
     public WebDriver driver;
+    static loginElements loginEle;
+    String jsonPath = System.getProperty("user.dir") + "/data/loginCredentials.json";
 
+    //! Constructor
     public login(WebDriver driver, String projectType) {
         this.projectType = projectType;
         this.driver = driver;
     }
-
-    static loginElements loginEle;
-    String jsonPath = System.getProperty("user.dir") + "/data/loginCredentials.json";
 
     public void loginWeb() throws Exception {
 

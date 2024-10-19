@@ -11,7 +11,7 @@ public class getPassword {
  
    
 
-    // Common method to retrieve OTPs and password
+    //! Common method to retrieve OTPs and password
     private static JsonNode getApiResponse(String email) throws IOException, InterruptedException {
         String BASE_URL = "https://172.26.10.5:3001";
         Thread.sleep(1000);

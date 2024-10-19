@@ -109,32 +109,10 @@ public class Components {
 		return element.getText();
 	}
 
-	// to take ss
-	public static String takeScreenShot(WebDriver driver, String path, String fileName) {
-		try {
-			TakesScreenshot ts = (TakesScreenshot) driver;
-			File source = ts.getScreenshotAs(OutputType.FILE);
-			File destination = new File(path + "\\" + fileName + ".png");
-			FileUtils.copyFile(source, destination);
-			return "ScreenShot taken";
-		} catch (Exception e) {
-
-			return ("Exception while taking screenshot: " + e.getMessage());
-		}
-	}
-
-	// short cut of implicitly wait
-	@SuppressWarnings("deprecation")
 	public static void implicitlyWait(WebDriver driver, int timeInSeconds) {
-		driver.manage().timeouts().implicitlyWait(timeInSeconds, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeInSeconds));
 	}
 
-	// all explicitly wait
-	// public static void waitForElementToBeClickable(WebDriver driver, By locator,
-	// Duration timeOutInSeconds) {
-	// WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-	// wait.until(ExpectedConditions.elementToBeClickable(locator));
-	// }
 	public static void waitForElementToBeClickable(WebDriver driver, By by, int time) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
 		wait.until(ExpectedConditions.elementToBeClickable(by));
@@ -160,13 +138,6 @@ public class Components {
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
-	// public static void waitForElementToBePresent(WebDriver driver, By locator,
-	// int time) {
-	// WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
-	// WebElement element =
-	// wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-	// wait.until(ExpectedConditions.visibilityOf(element));
-	// }
 	public static void waitForElementToBePresent(WebDriver driver, WebElement element, int time) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
 		wait.until(ExpectedConditions.visibilityOf(element));
@@ -226,46 +197,7 @@ public class Components {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		wait.until(ExpectedConditions.numberOfElementsToBe(locator, count));
 	}
-
-	// Text fields
-	// For enter text in some field
-	public static boolean enterText(WebDriver driver, String xpath, String text) {
-		try {
-			WebElement element = driver.findElement(By.xpath(xpath));
-			element.sendKeys(text);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-
-	// how many character will the field accept
-
-	public static int getMaxLength(WebDriver driver, String xpath) {
-		try {
-			WebElement element = driver.findElement(By.xpath(xpath));
-			String maxLengthAttribute = element.getAttribute("maxlength");
-			if (maxLengthAttribute == null) {
-				return -1;
-			} else {
-				return Integer.parseInt(maxLengthAttribute);
-			}
-		} catch (NoSuchElementException e) {
-			return -1;
-		}
-	}
-
-	// this will help to clear the text that already presented
-
-	public static boolean clearText(WebDriver driver, String xpath) {
-		try {
-			WebElement element = driver.findElement(By.xpath(xpath));
-			element.clear();
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
+	
 
 	// For checking the data type of the field
 	public static String checkDataTypeAccepted(WebDriver driver, String xpath) {
@@ -288,108 +220,6 @@ public class Components {
 		}
 	}
 
-	// for checking password field
-
-	//
-	// String pattern =
-	// "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,}$"; ==This
-	// pattern requires the password to contain at least:
-
-	/*
-	 * 1 lowercase letter 1 uppercase letter 1 number 1 special character (!@#$%^&*)
-	 * No whitespaces A minimum length of 8 characters
-	 */
-
-	public static boolean testPasswordField(WebDriver driver, String xpath, String pattern) {
-		try {
-			WebElement element = driver.findElement(By.xpath(xpath));
-			element.sendKeys("123Abc!@#");
-			String enteredText = element.getAttribute("value");
-			element.clear();
-
-			if (enteredText.matches(pattern)) {
-				return true;
-			}
-			return false;
-		} catch (NoSuchElementException e) {
-			System.out.println("Element not found: " + xpath);
-			return false;
-		}
-	}
-
-	// for testing the phone number field
-	public static String testPhoneNumberField(WebDriver driver, String xpath, String phonenumber) {
-
-		String datatype = checkDataTypeAccepted(driver, xpath);
-		int length = getMaxLength(driver, xpath);
-
-		if (length == 10 && datatype.equals("NUMBER")) {
-			return "pass";
-		} else {
-			return "MaxLength=" + length + "and DataType= " + datatype;
-		}
-
-	}
-	// Radio button
-	// to select a radio button
-
-	public static void selectRadioButton(WebDriver driver, String xpath) {
-		WebElement radioButton = driver.findElement(By.xpath(xpath));
-		if (!radioButton.isSelected()) {
-			radioButton.click();
-		}
-	}
-	// to deselect a radio button
-
-	public static void deselectRadioButton(WebDriver driver, String xpath) {
-		WebElement radioButton = driver.findElement(By.xpath(xpath));
-		if (radioButton.isSelected()) {
-			radioButton.click();
-		}
-	}
-	// Checkbox
-	// to select a check box
-
-	public static void selectCheckBox(WebDriver driver, String xpath) {
-		WebElement checkBox = driver.findElement(By.xpath(xpath));
-		if (!checkBox.isSelected()) {
-			checkBox.click();
-		}
-	}
-
-	// to deselect a check box
-
-	public static void deselectCheckBox(WebDriver driver, String xpath) {
-		WebElement checkBox = driver.findElement(By.xpath(xpath));
-		if (checkBox.isSelected()) {
-			checkBox.click();
-		}
-	}
-
-	// to select a Multiple check box
-
-	public static void selectMultipleCheckBoxes(WebDriver driver, String parentXpath) {
-		ArrayList<WebElement> checkBoxes = (ArrayList<WebElement>) driver
-				.findElements(By.xpath(parentXpath + "//input[@type='checkbox']"));
-		for (WebElement checkBox : checkBoxes) {
-			if (!checkBox.isSelected()) {
-				checkBox.click();
-			}
-		}
-	}
-
-	// to de select a Multiple check box
-
-	public static void deselectMultipleCheckboxes(WebDriver driver, String parentXpath) {
-		ArrayList<WebElement> checkboxes = (ArrayList<WebElement>) driver
-				.findElements(By.xpath(parentXpath + "//input[@type='checkbox']"));
-		for (WebElement checkbox : checkboxes) {
-			if (checkbox.isSelected()) {
-				checkbox.click();
-			}
-		}
-	}
-
 	// Dropdown
 	// to select the dropdown
 	public static void selectOptionFromDropdown(WebDriver driver, String xpath, String option) {
@@ -405,66 +235,6 @@ public class Components {
 		select.deselectAll();
 	}
 
-	// Button
-
-	public static void clickButton(WebDriver driver, String xpath) {
-		WebElement button = driver.findElement(By.xpath(xpath));
-		button.click();
-	}
-
-	public static void clickButton(WebDriver driver, WebElement element) {
-		WebElement button = element;
-		button.click();
-	}
-	// Link
-	// To click the link
-
-	public static void clickLink(WebDriver driver, String xpath) {
-		WebElement link = driver.findElement(By.xpath(xpath));
-		link.click();
-	}
-
-	// Image
-
-	// to get a alt of a image
-
-	public static String getImageAlt(WebDriver driver, String xpath) {
-		WebElement image = driver.findElement(By.xpath(xpath));
-		return image.getAttribute("alt");
-	}
-
-	// to click the image
-
-	public static void clickImageByXPath(WebDriver driver, String xpath) {
-		WebElement image = driver.findElement(By.xpath(xpath));
-		image.click();
-	}
-
-	// Upload File
-
-	public static void uploadFile(WebDriver driver, String xpath, String filePath) {
-		WebElement uploadElement = driver.findElement(By.xpath(xpath));
-		uploadElement.sendKeys(filePath);
-	}
-
-	// Data Picker
-
-	public static void selectDateFromDatePicker(WebDriver driver, String xpath, String xpathofInnercalender,
-			String date) {
-		WebElement datePicker = driver.findElement(By.xpath(xpath));
-		datePicker.click();
-
-		ArrayList<WebElement> allDates = (ArrayList<WebElement>) driver.findElements(By.xpath(xpathofInnercalender));
-
-		for (WebElement cell : allDates) {
-			if (cell.getText().equals(date)) {
-				cell.click();
-				break;
-			}
-		}
-
-	}
-
 	// Slider
 	public static void moveSlider(WebDriver driver, String xpath, int targetValue) {
 		WebElement slider = driver.findElement(By.xpath(xpath));
@@ -473,14 +243,6 @@ public class Components {
 		Actions moveSlider = new Actions(driver);
 		moveSlider.moveToElement(slider, ((targetValue * width) / 100), 0).click().build().perform();
 
-	}
-
-	// Toggle button
-	public static void toggleButton(WebDriver driver, String xpath) {
-		WebElement toggleButton = driver.findElement(By.xpath(xpath));
-		if (toggleButton.isSelected()) {
-			toggleButton.click();
-		}
 	}
 
 	// popup window
@@ -494,45 +256,6 @@ public class Components {
 			}
 		}
 
-	}
-
-	// Accordian
-	// To click the Accordian
-	public static void clickAccordion(WebDriver driver, String xpath) {
-		try {
-			WebElement accordion = driver.findElement(By.xpath(xpath));
-			accordion.click();
-		} catch (Exception e) {
-			System.out.println("Accordion not found: " + e.getMessage());
-		}
-	}
-
-	// to check multiple accordian are open
-
-	public static void checkSingleOpenAccordion(WebDriver driver, String accordionXpath, String accordionHeaderXpath) {
-		ArrayList<WebElement> accordions = (ArrayList<WebElement>) driver.findElements(By.xpath(accordionXpath));
-		for (WebElement accordion : accordions) {
-			WebElement accordionHeader = accordion.findElement(By.xpath(accordionHeaderXpath));
-			accordionHeader.click();
-			for (WebElement otherAccordion : accordions) {
-				if (!otherAccordion.equals(accordion)) {
-					// WebElement otherAccordionHeader =
-					// otherAccordion.findElement(By.xpath(accordionHeaderXpath));
-					String otherAccordionState = otherAccordion.getAttribute("aria-expanded");
-					if (otherAccordionState.equals("true")) {
-						System.out.println("Error: Multiple accordions are open");
-					}
-				}
-			}
-		}
-	}
-
-	// Carousel
-	// To get how many items are there in a corousel
-
-	public static int countItemsInCarousel(WebDriver driver, String carouselXpath) {
-		ArrayList<WebElement> carouselItems = (ArrayList<WebElement>) driver.findElements(By.xpath(carouselXpath));
-		return carouselItems.size();
 	}
 
 	// tooltip
@@ -551,36 +274,12 @@ public class Components {
 		}
 	}
 
-	// Auto complete
-	// to check auto complete is enabled or not
-
-	public static boolean isAutocompleteEnabled(WebDriver driver, String xpath) {
-		WebElement element = driver.findElement(By.xpath(xpath));
-		return element.getAttribute("autocomplete").equalsIgnoreCase("on");
-	}
-
-	// Search
-	public static void searchAndPressEnter(WebDriver driver, String xpath, String searchText) {
-		WebElement searchBox = driver.findElement(By.xpath(xpath));
-		searchBox.clear();
-		searchBox.sendKeys(searchText);
-		searchBox.sendKeys(Keys.ENTER);
-	}
-
 	// Pagination
 	public static void clickPage(WebDriver driver, int pageNumber) {
-		// Find the xpath of the pagination element containing all the page numbers
 		WebElement pagination = driver.findElement(By.xpath("//div[@class='pagination']"));
-
-		// Find all the page numbers in the pagination element
 		ArrayList<WebElement> pages = (ArrayList<WebElement>) pagination.findElements(By.xpath(".//a"));
-
-		// Loop through the page numbers to find the desired page
 		for (WebElement page : pages) {
-			// Get the text of the page number
 			String pageText = page.getText();
-
-			// If the page number text matches the user input, click on it
 			if (pageText.equals(Integer.toString(pageNumber))) {
 				page.click();
 				break;
@@ -592,7 +291,7 @@ public class Components {
 
 	public static void switchToAlert(WebDriver driver) {
 		try {
-			// Alert alert = driver.switchTo().alert();
+			Alert alert = driver.switchTo().alert();
 		} catch (NoAlertPresentException e) {
 			System.out.println("Alert is not present.");
 		}
@@ -625,42 +324,6 @@ public class Components {
 		}
 	}
 
-	// Video
-	// to check video is play able or not
-	public static boolean isVideoPlayable(WebDriver driver, String xpath) {
-		WebElement video = driver.findElement(By.xpath(xpath));
-		return ((JavascriptExecutor) driver).executeScript("return arguments[0].paused;", video).equals(false);
-	}
-
-	// to check video is presented or not
-
-	public static boolean isVideoPresent(WebDriver driver, String xpath) {
-		try {
-			driver.findElement(By.xpath(xpath));
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-
-	// switch the focus to the which ever tab you want
-	public static void switchToTab(WebDriver driver, int tabIndex) {
-		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-		driver.switchTo().window(tabs.get(tabIndex));
-	}
-
-	// I frame
-	// switching the focus to the i frame using index
-	public static void switchToiFrame(WebDriver driver, int frameIndex) {
-		driver.switchTo().frame(frameIndex);
-	}
-
-	// switching to i frame using the xpath
-	public static void switchToiFrame(WebDriver driver, String xpath) {
-		WebElement iFrameElement = driver.findElement(By.xpath(xpath));
-		driver.switchTo().frame(iFrameElement);
-	}
-
 	public static String stringDialouge(String string) {
 
 		String a = JOptionPane.showInputDialog(null, string);
@@ -689,7 +352,7 @@ public class Components {
 	public static String getOption(String... options) {
 		String projectType;
 		int choice = JOptionPane.showOptionDialog(null, "Python Or React", "Select Project Type",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,null);
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
 		if (choice >= 0 && choice < options.length) {
 			projectType = options[choice];
 		} else {
@@ -729,16 +392,16 @@ public class Components {
 		}
 	}
 
-	 public static String shuffleString(String input) {
-        char[] characters = input.toCharArray();
-        Random random = new Random();
-        for (int i = 0; i < characters.length; i++) {
-            int randomIndex = random.nextInt(characters.length);
-            char temp = characters[i];
-            characters[i] = characters[randomIndex];
-            characters[randomIndex] = temp;
-        }
+	public static String shuffleString(String input) {
+		char[] characters = input.toCharArray();
+		Random random = new Random();
+		for (int i = 0; i < characters.length; i++) {
+			int randomIndex = random.nextInt(characters.length);
+			char temp = characters[i];
+			characters[i] = characters[randomIndex];
+			characters[randomIndex] = temp;
+		}
 
-        return new String(characters);
-    }
+		return new String(characters);
+	}
 }

@@ -12,6 +12,7 @@ public class launchWeb {
 	public String projectType;
 	public WebDriver driver;
 
+	//! Constructor
 	public launchWeb(WebDriver driver, String projectType) {
 		this.projectType = projectType;
 		this.driver = driver;
