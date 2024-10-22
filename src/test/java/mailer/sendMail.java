@@ -31,7 +31,6 @@ public class sendMail {
                 + "\"path\": \"" + reportPath.replace("\\", "\\\\") + "\""
                 + "}]"
                 + "}";
-
         Response response = RestAssured.given()
                 .header("Content-Type", "application/json")
                 .body(jsonBody)
@@ -41,10 +40,11 @@ public class sendMail {
                 .extract()
                 .response();
         String responseBody = response.asString();
-        System.out.println("responseBody>>" + responseBody);
+        Components.printColorful(responseBody   ,"cyan_bold");
         killProcessOnPort();
     }
 
+    //? Helper method to run a server
     private static void runBatchFile() {
         try {
             String batchFilePath = System.getProperty("user.dir") + "\\src\\test\\java\\mailer\\node_runner.bat";
@@ -57,6 +57,7 @@ public class sendMail {
 
     }
 
+    //? Helper method to kill the process
     private static void killProcessOnPort() {
         try {
             int port = 3000;
@@ -79,6 +80,7 @@ public class sendMail {
         }
     }
 
+    //? Helper method to check if server is running
     private static void isServerRunning(WebDriver driver) throws InterruptedException {
         if (driver != null) {
             JavascriptExecutor js = (JavascriptExecutor) driver;

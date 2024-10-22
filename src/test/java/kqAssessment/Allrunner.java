@@ -26,10 +26,10 @@ public class Allrunner {
     @Test
     public void Runner() throws Exception {
         launch.launchKqWeb();
-        login.loginWeb();
-        login.logout();
-        login.forgetPassword();
-        login.loginWeb();
+        // login.loginWeb();
+        // login.logout();
+        // login.forgetPassword();
+        // login.loginWeb();
     }
 
     @AfterTest

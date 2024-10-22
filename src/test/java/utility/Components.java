@@ -2,6 +2,8 @@ package utility;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import javax.swing.JOptionPane;
@@ -190,7 +192,6 @@ public class Components {
 		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
 		wait.until(ExpectedConditions.numberOfElementsToBe(locator, count));
 	}
-	
 
 	// For checking the data type of the field
 	public static String checkDataTypeAccepted(WebDriver driver, String xpath) {
@@ -396,5 +397,40 @@ public class Components {
 		}
 
 		return new String(characters);
+	}
+
+	// ? Colorful terminal output
+	public static void printColorful(String message, String... colors) {
+		String RESET = "\033[0m";
+		final Map<String, String> COLORS = new HashMap<>();
+        COLORS.put("black", "\033[0;30m");
+        COLORS.put("red", "\033[0;31m");
+        COLORS.put("green", "\033[0;32m");
+        COLORS.put("yellow", "\033[0;33m");
+        COLORS.put("blue", "\033[0;34m");
+        COLORS.put("purple", "\033[0;35m");
+        COLORS.put("cyan", "\033[0;36m");
+        COLORS.put("white", "\033[0;37m");
+        COLORS.put("black_bold", "\033[1;30m");
+        COLORS.put("red_bold", "\033[1;31m");
+        COLORS.put("green_bold", "\033[1;32m");
+        COLORS.put("yellow_bold", "\033[1;33m");
+        COLORS.put("blue_bold", "\033[1;34m");
+        COLORS.put("purple_bold", "\033[1;35m");
+        COLORS.put("cyan_bold", "\033[1;36m");
+        COLORS.put("white_bold", "\033[1;37m");
+        COLORS.put("black_background", "\033[40m");
+        COLORS.put("red_background", "\033[41m");
+        COLORS.put("green_background", "\033[42m");
+        COLORS.put("yellow_background", "\033[43m");
+        COLORS.put("blue_background", "\033[44m");
+        COLORS.put("purple_background", "\033[45m");
+        COLORS.put("cyan_background", "\033[46m");
+        COLORS.put("white_background", "\033[47m");
+		StringBuilder colorCode = new StringBuilder();
+        for (String color : colors) {
+            colorCode.append(COLORS.getOrDefault(color.toLowerCase(), ""));
+        }
+		System.out.println(colorCode.toString() + message + RESET);
 	}
 }
