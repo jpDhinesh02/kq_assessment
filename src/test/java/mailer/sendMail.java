@@ -40,7 +40,7 @@ public class sendMail {
                 .extract()
                 .response();
         String responseBody = response.asString();
-        Components.printColorful(responseBody   ,"cyan_bold");
+        Components.printColorful(responseBody   ,"red_bold","yellow_background");
         killProcessOnPort();
     }
 
@@ -71,9 +71,9 @@ public class sendMail {
 
                 String killCommand = "taskkill /F /PID " + pid;
                 Runtime.getRuntime().exec(killCommand);
-                System.out.println("Killed process using port " + port + " with PID: " + pid);
+                Components.printColorful("Killed process using port " + port + " with PID: " + pid, "red_bold","yellow_background");
             } else {
-                System.out.println("No process is using port " + port);
+                Components.printColorful("No process is using port " + port, "red_bold","yellow_background");
             }
         } catch (Exception e) {
             e.printStackTrace();

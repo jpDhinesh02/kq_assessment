@@ -27,7 +27,7 @@ public class getPasswordDijango {
         int statusCode = response.getStatusCode();
 
         if (statusCode != 200) {
-            System.out.println("API call failed with status code: " + statusCode);
+            Components.printColorful("API call failed with status code: " + statusCode, "black_bold","white_Background");
             return null; // or throw an exception
         }
 
@@ -39,7 +39,7 @@ public class getPasswordDijango {
         JsonNode results = getApiResponse(email);
 
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("loginMobileOtp").asText().trim();
@@ -49,7 +49,7 @@ public class getPasswordDijango {
         JsonNode results = getApiResponse(email);
 
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("EmailOTP").asText().trim();
@@ -58,7 +58,7 @@ public class getPasswordDijango {
     public static String getUserPassword(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("Password").asText().trim();
@@ -67,7 +67,7 @@ public class getPasswordDijango {
     public static String getForgotPasswordMobileOtp(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("forgotOtp").asText().trim();
@@ -76,7 +76,7 @@ public class getPasswordDijango {
     public static String getForgotPasswordEmailOtp(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("forgotPasswordEmailOtp").asText().trim();

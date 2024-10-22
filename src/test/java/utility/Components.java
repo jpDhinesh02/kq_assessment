@@ -24,7 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Components {
 
-	// Basic Set up
+	// ! Basic Set up
 	public static WebDriver startChrome() {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
@@ -49,7 +49,7 @@ public class Components {
 		return firefoxDriver;
 
 	}
-	// thread sleep
+	// ! thread sleep
 
 	public static void waitFor(int timeInSeconds) {
 		timeInSeconds = timeInSeconds * 1000;
@@ -61,12 +61,12 @@ public class Components {
 		timeInSeconds = 0;
 	}
 
-	// to maximize the window
+	// ! to maximize the window
 	public static void maximizeWindow(WebDriver driver) {
 		driver.manage().window().maximize();
 	}
 
-	// to launch the page
+	// ! to launch the page
 	public static void launchPage(WebDriver driver, String link) {
 		driver.get(link);
 	}
@@ -75,7 +75,7 @@ public class Components {
 		driver.navigate().to(url);
 	}
 
-	// To Navigate BackWard and Forward
+	// ! To Navigate BackWard and Forward
 	public static void navigateForward(WebDriver driver) {
 		driver.navigate().forward();
 	}
@@ -84,17 +84,17 @@ public class Components {
 		driver.navigate().back();
 	}
 
-	// To Refresh the Page
+	// ! To Refresh the Page
 	public static void refreshPage(WebDriver driver) {
 		driver.navigate().refresh();
 	}
 
-	// to quit all windows
+	// ! to quit all windows
 	public static void quitBrowser(WebDriver driver) {
 		driver.quit();
 	}
 
-	// to close the currently focused window
+	// ! to close the currently focused window
 	public static void closeBrowser(WebDriver driver) {
 		driver.close();
 	}
@@ -193,7 +193,7 @@ public class Components {
 		wait.until(ExpectedConditions.numberOfElementsToBe(locator, count));
 	}
 
-	// For checking the data type of the field
+	// ! For checking the data type of the field
 	public static String checkDataTypeAccepted(WebDriver driver, String xpath) {
 		try {
 			WebElement element = driver.findElement(By.xpath(xpath));
@@ -214,32 +214,32 @@ public class Components {
 		}
 	}
 
-	// Dropdown
-	// to select the dropdown
+	// ! Dropdown
+	// ! to select the dropdown
 	public static void selectOptionFromDropdown(WebDriver driver, String xpath, String option) {
 		WebElement dropdown = driver.findElement(By.xpath(xpath));
 		Select select = new Select(dropdown);
 		select.selectByVisibleText(option);
 	}
 
-	// to de select the dropdown
+	// ! to de select the dropdown
 	public static void deselectDropdown(WebDriver driver, String xpath) {
 		WebElement dropdown = driver.findElement(By.xpath(xpath));
 		Select select = new Select(dropdown);
 		select.deselectAll();
 	}
 
-	// Slider
+	// ! Slider
 	public static void moveSlider(WebDriver driver, String xpath, int targetValue) {
 		WebElement slider = driver.findElement(By.xpath(xpath));
 		int width = slider.getSize().width;
-		// int xCoord = slider.getLocation().x;
+		// ! int xCoord = slider.getLocation().x;
 		Actions moveSlider = new Actions(driver);
 		moveSlider.moveToElement(slider, ((targetValue * width) / 100), 0).click().build().perform();
 
 	}
 
-	// popup window
+	// ! popup window
 
 	public static void switchToPopupWindow(WebDriver driver) {
 		String mainWindowHandle = driver.getWindowHandle();
@@ -252,11 +252,10 @@ public class Components {
 
 	}
 
-	// tooltip
+	// ! tooltip
 
-	// to check wheather the tooltip is presented or not and what is the text inside
-	// the tooltip
-
+	// ! to check wheather the tooltip is presented or not and what is the text inside
+	// ! the tooltip
 	public static void checkAndPrintTooltipText(WebDriver driver, String xpath) {
 		WebElement element = driver.findElement(By.xpath(xpath));
 		Actions actions = new Actions(driver);
@@ -268,10 +267,10 @@ public class Components {
 		}
 	}
 
-	// Pagination
+	// ! Pagination
 	public static void clickPage(WebDriver driver, int pageNumber) {
-		WebElement pagination = driver.findElement(By.xpath("//div[@class='pagination']"));
-		ArrayList<WebElement> pages = (ArrayList<WebElement>) pagination.findElements(By.xpath(".//a"));
+		WebElement pagination = driver.findElement(By.xpath("// !div[@class='pagination']"));
+		ArrayList<WebElement> pages = (ArrayList<WebElement>) pagination.findElements(By.xpath(".// !a"));
 		for (WebElement page : pages) {
 			String pageText = page.getText();
 			if (pageText.equals(Integer.toString(pageNumber))) {
@@ -281,7 +280,7 @@ public class Components {
 		}
 	}
 
-	// Alerts
+	// ! Alerts
 
 	public static void switchToAlert(WebDriver driver) {
 		try {
@@ -291,13 +290,13 @@ public class Components {
 		}
 	}
 
-	// To accept the alert
+	// ! To accept the alert
 	public static void acceptAlert(WebDriver driver) {
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
 	}
 
-	// to dismiss the alert
+	// ! to dismiss the alert
 	public static void dismisAlert(WebDriver driver) {
 		try {
 			Alert alert = driver.switchTo().alert();
@@ -307,7 +306,7 @@ public class Components {
 		}
 	}
 
-	// to send the text in the alert box
+	// ! to send the text in the alert box
 	public static void sendTextToAlert(WebDriver driver, String text) {
 		try {
 			Alert alert = driver.switchTo().alert();
@@ -324,7 +323,7 @@ public class Components {
 		return a;
 	}
 
-	// Method for JOption Int
+	// ! Method for JOption Int
 	public static int intDialouge(String string) {
 		String a = JOptionPane.showInputDialog(null, string);
 		int a1 = Integer.parseInt(a);
@@ -399,38 +398,38 @@ public class Components {
 		return new String(characters);
 	}
 
-	// ? Colorful terminal output
+	// ! ? Colorful terminal output
 	public static void printColorful(String message, String... colors) {
 		String RESET = "\033[0m";
 		final Map<String, String> COLORS = new HashMap<>();
-        COLORS.put("black", "\033[0;30m");
-        COLORS.put("red", "\033[0;31m");
-        COLORS.put("green", "\033[0;32m");
-        COLORS.put("yellow", "\033[0;33m");
-        COLORS.put("blue", "\033[0;34m");
-        COLORS.put("purple", "\033[0;35m");
-        COLORS.put("cyan", "\033[0;36m");
-        COLORS.put("white", "\033[0;37m");
-        COLORS.put("black_bold", "\033[1;30m");
-        COLORS.put("red_bold", "\033[1;31m");
-        COLORS.put("green_bold", "\033[1;32m");
-        COLORS.put("yellow_bold", "\033[1;33m");
-        COLORS.put("blue_bold", "\033[1;34m");
-        COLORS.put("purple_bold", "\033[1;35m");
-        COLORS.put("cyan_bold", "\033[1;36m");
-        COLORS.put("white_bold", "\033[1;37m");
-        COLORS.put("black_background", "\033[40m");
-        COLORS.put("red_background", "\033[41m");
-        COLORS.put("green_background", "\033[42m");
-        COLORS.put("yellow_background", "\033[43m");
-        COLORS.put("blue_background", "\033[44m");
-        COLORS.put("purple_background", "\033[45m");
-        COLORS.put("cyan_background", "\033[46m");
-        COLORS.put("white_background", "\033[47m");
+		COLORS.put("black", "\033[0;30m");
+		COLORS.put("red", "\033[0;31m");
+		COLORS.put("green", "\033[0;32m");
+		COLORS.put("yellow", "\033[0;33m");
+		COLORS.put("blue", "\033[0;34m");
+		COLORS.put("purple", "\033[0;35m");
+		COLORS.put("cyan", "\033[0;36m");
+		COLORS.put("white", "\033[0;37m");
+		COLORS.put("black_bold", "\033[1;30m");
+		COLORS.put("red_bold", "\033[1;31m");
+		COLORS.put("green_bold", "\033[1;32m");
+		COLORS.put("yellow_bold", "\033[1;33m");
+		COLORS.put("blue_bold", "\033[1;34m");
+		COLORS.put("purple_bold", "\033[1;35m");
+		COLORS.put("cyan_bold", "\033[1;36m");
+		COLORS.put("white_bold", "\033[1;37m");
+		COLORS.put("black_background", "\033[40m");
+		COLORS.put("red_background", "\033[41m");
+		COLORS.put("green_background", "\033[42m");
+		COLORS.put("yellow_background", "\033[43m");
+		COLORS.put("blue_background", "\033[44m");
+		COLORS.put("purple_background", "\033[45m");
+		COLORS.put("cyan_background", "\033[46m");
+		COLORS.put("white_background", "\033[47m");
 		StringBuilder colorCode = new StringBuilder();
-        for (String color : colors) {
-            colorCode.append(COLORS.getOrDefault(color.toLowerCase(), ""));
-        }
+		for (String color : colors) {
+			colorCode.append(COLORS.getOrDefault(color.toLowerCase(), ""));
+		}
 		System.out.println(colorCode.toString() + message + RESET);
 	}
 }

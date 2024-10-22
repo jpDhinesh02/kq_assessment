@@ -32,7 +32,6 @@ public class extentReports {
 			ExtentSparkReporter htmlReporter = new ExtentSparkReporter("./Reports/" +reportFileName);
 			extent = new ExtentReports();
 			extent.attachReporter(htmlReporter);
-			System.out.println(System.getProperty("user.dir")+reportFileName);
 			htmlReporter.config().setTheme(Theme.DARK);
 		}
 	}

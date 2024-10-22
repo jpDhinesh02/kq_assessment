@@ -52,7 +52,7 @@ const sendMail = (req, res) => {
       return res.status(500).json({ message: `Error: ${error.message}` });
     }
     res.status(200).json({ message: `Email sent to ${to} successfully` });
-    console.log("Email sent to ", to, " successfully.");
+    // console.log("Email sent to ", to, " successfully.");
   });
 };
 

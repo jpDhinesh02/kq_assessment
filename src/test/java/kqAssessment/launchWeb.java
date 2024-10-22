@@ -6,13 +6,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
+import utility.Components;
 import utility.extentReports;
 
 public class launchWeb {
 	public String projectType;
 	public WebDriver driver;
 
-	//! Constructor
+	// ! Constructor
 	public launchWeb(WebDriver driver, String projectType) {
 		this.projectType = projectType;
 		this.driver = driver;
@@ -22,7 +23,7 @@ public class launchWeb {
 		extentReports.createTest("Launch_KqAssessment", "Test for launch Application");
 		try {
 			String[] urlLinks;
-			System.err.println("projectType>>>>" + projectType);
+			Components.printColorful("Current project type is " + projectType, "White_Background", "Blue_Bold");
 			if (projectType.contains("python")) {
 				urlLinks = new String[] { "http://172.26.10.5:8000/" };
 			} else if (projectType.contains("react")) {

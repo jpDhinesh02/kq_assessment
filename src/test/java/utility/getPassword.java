@@ -29,7 +29,7 @@ public class getPassword {
         int statusCode = response.getStatusCode();
 
         if (statusCode != 200) {
-            System.out.println("API call failed with status code: " + statusCode);
+            Components.printColorful("API call failed with status code: " + statusCode, "black_bold","white_Background");
             return null; // or throw an exception
         }
 
@@ -40,7 +40,7 @@ public class getPassword {
     public static String getLoginMobileOtp(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("loginMobileOtp").asText().trim();
@@ -50,7 +50,7 @@ public class getPassword {
         JsonNode results = getApiResponse(email);
 
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("loginEmailOtp").asText().trim();
@@ -59,7 +59,7 @@ public class getPassword {
     public static String getUserPassword(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("password").asText().trim();
@@ -68,7 +68,7 @@ public class getPassword {
     public static String getForgotPasswordMobileOtp(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("forgotPasswordMobileOtp").asText().trim();
@@ -77,7 +77,7 @@ public class getPassword {
     public static String getForgotPasswordEmailOtp(String email) throws IOException, InterruptedException {
         JsonNode results = getApiResponse(email);
         if (results == null || results.isMissingNode()) {
-            System.out.println("No results found in response.");
+            Components.printColorful("No results found in response.", "black_bold","white_Background");
             return null;
         }
         return results.path("forgotPasswordEmailOtp").asText().trim();

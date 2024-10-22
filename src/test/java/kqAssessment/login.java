@@ -103,8 +103,6 @@ public class login {
             throws IOException, InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         String otp;
-        System.out.println("page.toLowerCase().replaceAll(\" \", \"\").equals(\"forgetpassword\")>>>>"
-                + page.toLowerCase().replaceAll(" ", "").equals("forgetpassword"));
         if (page.toLowerCase().replaceAll(" ", "").equals("login")) {
             otp = getPassword.getLoginEmailOtp(username);
         } else if (page.toLowerCase().replaceAll(" ", "").equals("forgetpassword")) {
