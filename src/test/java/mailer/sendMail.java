@@ -1,9 +1,12 @@
 package mailer;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +14,6 @@ import io.restassured.RestAssured;
 import io.restassured.config.SSLConfig;
 import io.restassured.response.Response;
 import utility.Components;
-import utility.extentReports;
 
 public class sendMail {
 
@@ -21,7 +23,7 @@ public class sendMail {
         runBatchFile();
         isServerRunning(driver);
         RestAssured.config = RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation());
-        String reportPath = System.getProperty("user.dir")+"/Reports/"+extentReports.reportFileName+ ".html";
+        String reportPath = getLatestReport();
 
         String jsonBody = "{"
                 + "\"to\": \"" + toMail + "\","
@@ -40,11 +42,11 @@ public class sendMail {
                 .extract()
                 .response();
         String responseBody = response.asString();
-        Components.printColorful(responseBody   ,"red_bold","yellow_background");
+        Components.printColorful(responseBody, "red_bold", "yellow_background");
         killProcessOnPort();
     }
 
-    //? Helper method to run a server
+    // ? Helper method to run a server
     private static void runBatchFile() {
         try {
             String batchFilePath = System.getProperty("user.dir") + "\\src\\test\\java\\mailer\\node_runner.bat";
@@ -57,7 +59,7 @@ public class sendMail {
 
     }
 
-    //? Helper method to kill the process
+    // ? Helper method to kill the process
     private static void killProcessOnPort() {
         try {
             int port = 3000;
@@ -71,16 +73,17 @@ public class sendMail {
 
                 String killCommand = "taskkill /F /PID " + pid;
                 Runtime.getRuntime().exec(killCommand);
-                Components.printColorful("Killed process using port " + port + " with PID: " + pid, "red_bold","yellow_background");
+                Components.printColorful("Killed process using port " + port + " with PID: " + pid, "red_bold",
+                        "yellow_background");
             } else {
-                Components.printColorful("No process is using port " + port, "red_bold","yellow_background");
+                Components.printColorful("No process is using port " + port, "red_bold", "yellow_background");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    //? Helper method to check if server is running
+    // ? Helper method to check if server is running
     private static void isServerRunning(WebDriver driver) throws InterruptedException {
         if (driver != null) {
             JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -102,4 +105,19 @@ public class sendMail {
         }
         driver.quit();
     }
+
+    // ? Helper method to get latest file from the reports folder
+    public static String getLatestReport() {
+        String reportDirectory = System.getProperty("user.dir") + "/Reports/";
+        File dir = new File(reportDirectory);
+        File[] files = dir.listFiles((d, name) -> name.endsWith(".html"));
+        if (files != null && files.length > 0) {
+            Arrays.sort(files, Comparator.comparingLong(File::lastModified).reversed());
+            return files[0].getAbsolutePath();
+        } else {
+            System.out.println("No report files found in the directory.");
+            return null;
+        }
+    }
+
 }

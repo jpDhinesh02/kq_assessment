@@ -21,15 +21,13 @@ public class extentReports {
 	static String formattedDateTime;
 	File destination;
 	static String dest;
-	public static String reportFileName;
 
 	public static void initalizeExtent(String fileName) {
 		if (extent == null) {
 
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HHmmss");
 			formattedDateTime = currentDateTime.format(formatter);
-			reportFileName =  fileName + "_" + formattedDateTime;
-			ExtentSparkReporter htmlReporter = new ExtentSparkReporter("./Reports/" +reportFileName);
+			ExtentSparkReporter htmlReporter = new ExtentSparkReporter("./Reports/" +fileName + "_" + formattedDateTime);
 			extent = new ExtentReports();
 			extent.attachReporter(htmlReporter);
 			htmlReporter.config().setTheme(Theme.DARK);

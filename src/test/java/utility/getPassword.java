@@ -8,8 +8,6 @@ import io.restassured.config.SSLConfig;
 import io.restassured.response.Response;
 
 public class getPassword {
- 
-   
 
     //! Common method to retrieve OTPs and password
     private static JsonNode getApiResponse(String email) throws IOException, InterruptedException {

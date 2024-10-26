@@ -20,9 +20,8 @@ public class appiumComponents {
 	private AppiumDriverLocalService service;
 	private AndroidDriver driver;
 
-	//! constructor
-	public appiumComponents() 
-	{
+	// ! constructor
+	public appiumComponents() {
 		service = new AppiumServiceBuilder()
 				.withAppiumJS(new File(
 						"C://Users//Dhinesh.P//AppData//Roaming//npm//node_modules//appium//build//lib//main.js"))

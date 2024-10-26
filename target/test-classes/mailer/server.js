@@ -5,7 +5,6 @@ const app = express();
 app.use(bodyParser.json());
 app.post("/mail", sendMail);
 
-
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 });

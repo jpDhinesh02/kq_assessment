@@ -37,15 +37,13 @@ const sendMail = (req, res) => {
       }
     });
   });
-    const mailOptions = {
-
-      from: "jpdhinesh2002@gmail.com",
-      to,
-      subject,
-      text,
-      attachments: attachmentPaths,
-    };
-  
+  const mailOptions = {
+    from: "jpdhinesh2002@gmail.com",
+    to,
+    subject,
+    text,
+    attachments: attachmentPaths,
+  };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
